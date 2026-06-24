@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.Default" parent="@style/Theme.MaterialComponents.Light.Bridge">
+        <item name="android:windowBackground">@color/dark_bg</item>
+        <item name="android:spinnerStyle">@style/Widget.App.Spinner</item>
+        <item name="android:windowSplashScreenBackground">@color/splash_bg</item>
+        <item name="autoCompleteTextViewStyle">@style/AppTheme.AutoComplete</item>
+        <item name="colorAccent">@color/danger</item>
+        <item name="colorPrimary">@color/dark</item>
+        <item name="colorPrimaryDark">@color/dark</item>
+        <item name="spinnerStyle">@style/Widget.App.Spinner</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Base.Theme.SplashScreen" parent="@android:style/Theme.DeviceDefault.DayNight">
+        <item name="android:enforceNavigationBarContrast">true</item>
+        <item name="isLightTheme">?android:isLightTheme</item>
+    </style>
+    <style name="Theme.App.Splash" parent="@style/Theme.SplashScreen">
+        <item name="android:windowSplashScreenBrandingImage">@drawable/splash_branding</item>
+        <item name="postSplashScreenTheme">@style/AppTheme.Default</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/appicon_animated</item>
+        <item name="windowSplashScreenBackground">@color/splash_bg</item>
+    </style>
+    <style name="Theme.SplashScreen" parent="@style/Base.Theme.SplashScreen.DayNight">
+        <item name="android:windowSplashScreenBackground">?windowSplashScreenBackground</item>
+        <item name="android:windowSplashScreenAnimatedIcon">?windowSplashScreenAnimatedIcon</item>
+        <item name="android:windowSplashScreenAnimationDuration">?windowSplashScreenAnimationDuration</item>
+    </style>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="?appBackground" android:fitsSystemWindows="true" android:layout_width="match_parent" android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.appbar.AppBarLayout android:background="?appBackground" android:layout_width="match_parent" android:layout_height="wrap_content" android:stateListAnimator="@null" app:elevation="0.0dp">
+        <androidx.appcompat.widget.Toolbar android:theme="@style/ToolbarIconOverlay" android:id="@id/toolbar" android:layout_width="match_parent" android:layout_height="?actionBarSize" app:contentInsetStartWithNavigation="0.0dp" app:navigationIcon="@drawable/ic_chevron_left_themed" app:navigationIconTint="?appTextPrimary" app:popupTheme="@style/Theme.AppCompat.Light" app:titleTextAppearance="@style/ToolbarTitleCompose" app:titleTextColor="?appTextPrimary" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <RelativeLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.viewpager2.widget.ViewPager2 android:id="@id/ultra_viewpager" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_above="@id/tier_indicators" android:layout_centerHorizontal="true" />
+        <LinearLayout android:id="@id/tier_indicators" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dp" android:layout_marginBottom="10.0dp" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true">
+            <View android:id="@id/unlock_pro_indicator" android:background="@drawable/page_indicator_default_basic" android:layout_width="10.0dp" android:layout_height="10.0dp" android:layout_margin="4.0dp" />
+            <View android:id="@id/remove_ads_indicator" android:background="@drawable/page_indicator_selected_success" android:layout_width="10.0dp" android:layout_height="10.0dp" android:layout_margin="4.0dp" />
+            <View android:id="@id/remove_ads_unlock_pro_indicator" android:background="@drawable/page_indicator_default_purple" android:layout_width="10.0dp" android:layout_height="10.0dp" android:layout_margin="4.0dp" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

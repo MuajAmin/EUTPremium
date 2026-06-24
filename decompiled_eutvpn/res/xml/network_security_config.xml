@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">edns.space</domain>
+        <domain includeSubdomains="true">ip-api.com</domain>
+        <domain includeSubdomains="true">ipinfo.io</domain>
+        <domain includeSubdomains="true">api.ipstack.com</domain>
+        <domain includeSubdomains="true">extreme-ip-lookup.com</domain>
+    </domain-config>
+</network-security-config>

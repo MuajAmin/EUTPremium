@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="24.0dp" android:width="24.0dp" android:viewportWidth="100.0" android:viewportHeight="100.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:pivotX="50.0" android:pivotY="50.0" android:scaleX="1.17" android:scaleY="1.2">
+        <path android:fillColor="@color/danger" android:pathData="M46.05,60.16H31.92c-0.84,0 -1.51,0.68 -1.51,1.51v21.93c0,0.84 0.68,1.51 1.51,1.51H46.05c0.84,0 1.51,-0.68 1.51,-1.51V61.67C47.56,60.84 46.88,60.16 46.05,60.16z" />
+        <path android:fillColor="@color/success" android:pathData="M68.08,14.88H53.95c-0.84,0 -1.51,0.68 -1.51,1.51v67.22c0,0.84 0.68,1.51 1.51,1.51h14.13c0.84,0 1.51,-0.68 1.51,-1.51V16.39C69.59,15.56 68.91,14.88 68.08,14.88z" />
+        <path android:fillColor="@color/primary" android:pathData="M90.22,35.3H76.09c-0.84,0 -1.51,0.68 -1.51,1.51v46.8c0,0.84 0.68,1.51 1.51,1.51h14.13c0.84,0 1.51,-0.68 1.51,-1.51V36.81C91.73,35.98 91.05,35.3 90.22,35.3z" />
+        <path android:fillColor="@color/warning" android:pathData="M23.91,35.3H9.78c-0.84,0 -1.51,0.68 -1.51,1.51v46.8c0,0.84 0.68,1.51 1.51,1.51H23.91c0.84,0 1.51,-0.68 1.51,-1.51V36.81C25.42,35.98 24.75,35.3 23.91,35.3z" />
+    </group>
+</vector>

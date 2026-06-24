@@ -1,0 +1,39 @@
+{
+    "features": [
+        {
+            "icon": "ic_apps",
+            "iconTint": "Purple",
+            "title": "Customizable Quick Tools",
+            "description": "Personalize your home screen by selecting and arranging your favorite quick tools.",
+            "badge": "NEW"
+        },
+        {
+            "icon": "ic_tools",
+            "iconTint": "Success",
+            "title": "Expanded Network Toolkit",
+            "description": "Added built-in IP Checker and Port Checker utilities.",
+            "badge": "NEW"
+        },
+        {
+            "icon": "ic_rocket",
+            "iconTint": "Primary",
+            "title": "Custom Payload Enhancements",
+            "description": "Optimized core logic and upgraded the configuration interface.",
+            "badge": "IMPROVE"
+        },
+        {
+            "icon": "appicon_auto",
+            "iconTint": "Info",
+            "title": "Refined Minimalist UI",
+            "description": "Polished layout elements for a cleaner, more intuitive user experience.",
+            "badge": "IMPROVE"
+        },
+        {
+            "icon": "ic_shield",
+            "iconTint": "Success",
+            "title": "Bug & Security Fixes",
+            "description": "Resolved critical backend engine issues and improved overall stability.",
+            "badge": "FIX"
+        }
+    ]
+}

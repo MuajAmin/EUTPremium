@@ -1,0 +1,203 @@
+.class public final Lth5;
+.super Lpe5;
+.source "r8-map-id-307af2d692852664738bc479ce55e642add5308346a742e2540765bc242001a6"
+
+
+# static fields
+.field public static final d:Ljava/lang/String;
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .locals 2
+
+    .line 1
+    new-instance v0, Ljava/lang/String;
+
+    .line 2
+    .line 3
+    const/16 v1, 0xf
+
+    .line 4
+    .line 5
+    new-array v1, v1, [B
+
+    .line 6
+    .line 7
+    fill-array-data v1, :array_0
+
+    .line 8
+    .line 9
+    .line 10
+    invoke-direct {v0, v1}, Ljava/lang/String;-><init>([B)V
+
+    .line 11
+    .line 12
+    .line 13
+    sput-object v0, Lth5;->d:Ljava/lang/String;
+
+    .line 14
+    .line 15
+    return-void
+
+    .line 16
+    nop
+
+    .line 17
+    :array_0
+    .array-data 1
+        0x77t
+        0x6ft
+        0x72t
+        0x6bt
+        0x65t
+        0x72t
+        0x2et
+        0x63t
+        0x72t
+        0x61t
+        0x73t
+        0x68t
+        0x2et
+        0x69t
+        0x64t
+    .end array-data
+.end method
+
+
+# virtual methods
+.method public final c()Z
+    .locals 3
+
+    .line 1
+    iget-object v0, p0, Lpe5;->b:Ljava/lang/Object;
+
+    .line 2
+    .line 3
+    check-cast v0, Lzh5;
+
+    .line 4
+    .line 5
+    iget-object v1, v0, Lzh5;->k:Lkf5;
+
+    .line 6
+    .line 7
+    sget-object v2, Lth5;->d:Ljava/lang/String;
+
+    .line 8
+    .line 9
+    iget-object v1, v1, Lkf5;->a:Ljava/util/HashMap;
+
+    .line 10
+    .line 11
+    invoke-virtual {v1, v2}, Ljava/util/HashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    .line 12
+    .line 13
+    .line 14
+    move-result-object v1
+
+    .line 15
+    instance-of v2, v1, Ljava/lang/String;
+
+    .line 16
+    .line 17
+    if-eqz v2, :cond_0
+
+    .line 18
+    .line 19
+    check-cast v1, Ljava/lang/String;
+
+    .line 20
+    .line 21
+    goto :goto_0
+
+    .line 22
+    :cond_0
+    const/4 v1, 0x0
+
+    .line 23
+    :goto_0
+    if-eqz v1, :cond_2
+
+    .line 24
+    .line 25
+    invoke-virtual {v1}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    .line 26
+    .line 27
+    .line 28
+    move-result-object v2
+
+    .line 29
+    invoke-virtual {v2}, Ljava/lang/String;->isEmpty()Z
+
+    .line 30
+    .line 31
+    .line 32
+    move-result v2
+
+    .line 33
+    if-eqz v2, :cond_1
+
+    .line 34
+    .line 35
+    goto :goto_1
+
+    .line 36
+    :cond_1
+    new-instance v2, Lh40;
+
+    .line 37
+    .line 38
+    iget-object p0, p0, Lpe5;->c:Ljava/lang/Object;
+
+    .line 39
+    .line 40
+    check-cast p0, Ljava/lang/ref/WeakReference;
+
+    .line 41
+    .line 42
+    invoke-virtual {p0}, Ljava/lang/ref/Reference;->get()Ljava/lang/Object;
+
+    .line 43
+    .line 44
+    .line 45
+    move-result-object p0
+
+    .line 46
+    check-cast p0, Landroid/content/Context;
+
+    .line 47
+    .line 48
+    invoke-direct {v2, p0}, Lh40;-><init>(Landroid/content/Context;)V
+
+    .line 49
+    .line 50
+    .line 51
+    iget-object p0, v0, Lzh5;->a:Ljava/lang/String;
+
+    .line 52
+    .line 53
+    iput-object p0, v2, Lh40;->z:Ljava/lang/Object;
+
+    .line 54
+    .line 55
+    invoke-virtual {v2, v1}, Lh40;->b(Ljava/lang/String;)Z
+
+    .line 56
+    .line 57
+    .line 58
+    move-result p0
+
+    .line 59
+    return p0
+
+    .line 60
+    :cond_2
+    :goto_1
+    const/4 p0, 0x0
+
+    .line 61
+    return p0
+.end method
