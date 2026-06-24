@@ -1,0 +1,15 @@
+# Build outputs
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Original XAPK (too large, keep in releases instead)
+*.xapk
