@@ -28,6 +28,29 @@ jobs:
         run: |
           java -jar tools/apktool.jar b decompiled_eutvpn -o build/xyz.eutvpn.app.apk
 
+      # ── Merge split config APKs into single unified APK ───────
+      - name: Merge split configs into base APK
+        run: |
+          mkdir -p build/merge_tmp
+
+          # Extract each split config APK and inject into base APK
+          for split in config.arm64_v8a config.en config.hdpi config.zh; do
+            echo "── Merging ${split}.apk ──"
+            mkdir -p "build/merge_tmp/${split}"
+            unzip -o "extracted_xapk/${split}.apk" -d "build/merge_tmp/${split}"
+
+            # Remove META-INF & AndroidManifest from splits (base APK has its own)
+            rm -rf "build/merge_tmp/${split}/META-INF"
+            rm -f  "build/merge_tmp/${split}/AndroidManifest.xml"
+
+            # Inject split contents into the base APK
+            cd "build/merge_tmp/${split}"
+            zip -r -0 "../../xyz.eutvpn.app.apk" . 2>/dev/null || true
+            cd "$GITHUB_WORKSPACE"
+          done
+
+          echo "✅ All split configs merged into base APK"
+
       # ── Generate a debug keystore for signing ─────────────────
       - name: Generate debug keystore
         run: |
@@ -68,47 +91,19 @@ jobs:
             --ks-key-alias debug \
             --ks-pass pass:android \
             --key-pass pass:android \
-            --out build/xyz.eutvpn.app-signed.apk \
+            --out build/EutVPN-2.2.0-patched.apk \
             build/xyz.eutvpn.app.apk
 
-      # ── Package as XAPK (zip with split configs) ─────────────
-      - name: Package XAPK with split configs
-        run: |
-          mkdir -p build/xapk_staging
-
-          # Patched base APK
-          cp build/xyz.eutvpn.app-signed.apk build/xapk_staging/xyz.eutvpn.app.apk
-
-          # Split config APKs (unchanged)
-          cp extracted_xapk/config.arm64_v8a.apk build/xapk_staging/
-          cp extracted_xapk/config.en.apk         build/xapk_staging/
-          cp extracted_xapk/config.hdpi.apk        build/xapk_staging/
-          cp extracted_xapk/config.zh.apk          build/xapk_staging/
-
-          # XAPK manifest
-          cp extracted_xapk/manifest.json build/xapk_staging/
-
-          # Create XAPK (just a zip with .xapk extension)
-          cd build/xapk_staging
-          zip -r ../EutVPN-2.2.0-patched.xapk ./*
-
-      # ── Upload artifacts ──────────────────────────────────────
-      - name: Upload signed base APK
+      # ── Upload unified APK ────────────────────────────────────
+      - name: Upload patched APK
         uses: actions/upload-artifact@v4
         with:
-          name: EutVPN-base-apk-signed
-          path: build/xyz.eutvpn.app-signed.apk
-          retention-days: 30
-
-      - name: Upload patched XAPK
-        uses: actions/upload-artifact@v4
-        with:
-          name: EutVPN-patched-xapk
-          path: build/EutVPN-2.2.0-patched.xapk
+          name: EutVPN-2.2.0-patched
+          path: build/EutVPN-2.2.0-patched.apk
           retention-days: 30
 
       # ── Verify ────────────────────────────────────────────────
       - name: Verify APK signature
         run: |
-          apksigner verify --print-certs build/xyz.eutvpn.app-signed.apk
-          echo "✅ APK signed and verified successfully"
+          apksigner verify --print-certs build/EutVPN-2.2.0-patched.apk
+          echo "✅ Unified APK signed and verified successfully"
