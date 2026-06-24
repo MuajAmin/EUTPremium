@@ -13,3 +13,5 @@ desktop.ini
 
 # Original XAPK (too large, keep in releases instead)
 *.xapk
+*.apk
+*.zip
