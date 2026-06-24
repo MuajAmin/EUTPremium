@@ -1,0 +1,114 @@
+name: Build Patched EutVPN APK
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── Checkout ──────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── Java (required by apktool) ────────────────────────────
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # ── Rebuild base APK from decompiled smali ────────────────
+      - name: Rebuild base APK with apktool
+        run: |
+          java -jar tools/apktool.jar b decompiled_eutvpn -o build/xyz.eutvpn.app.apk --use-aapt2
+
+      # ── Generate a debug keystore for signing ─────────────────
+      - name: Generate debug keystore
+        run: |
+          keytool -genkeypair \
+            -alias debug \
+            -keypass android \
+            -storepass android \
+            -keystore build/debug.keystore \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -dname "CN=Debug,OU=Debug,O=Debug,L=Debug,ST=Debug,C=US"
+
+      # ── Zipalign ──────────────────────────────────────────────
+      - name: Install Android build tools (for zipalign & apksigner)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq zipalign apksigner 2>/dev/null || true
+
+          # Fallback: use Android SDK if available
+          if ! command -v zipalign &> /dev/null; then
+            ANDROID_BUILD_TOOLS="$ANDROID_HOME/build-tools"
+            LATEST_BT=$(ls "$ANDROID_BUILD_TOOLS" | sort -V | tail -1)
+            export PATH="$ANDROID_BUILD_TOOLS/$LATEST_BT:$PATH"
+            echo "$ANDROID_BUILD_TOOLS/$LATEST_BT" >> $GITHUB_PATH
+          fi
+
+      - name: Zipalign APK
+        run: |
+          zipalign -v 4 build/xyz.eutvpn.app.apk build/xyz.eutvpn.app-aligned.apk
+          mv build/xyz.eutvpn.app-aligned.apk build/xyz.eutvpn.app.apk
+
+      # ── Sign with apksigner ──────────────────────────────────
+      - name: Sign APK
+        run: |
+          apksigner sign \
+            --ks build/debug.keystore \
+            --ks-key-alias debug \
+            --ks-pass pass:android \
+            --key-pass pass:android \
+            --out build/xyz.eutvpn.app-signed.apk \
+            build/xyz.eutvpn.app.apk
+
+      # ── Package as XAPK (zip with split configs) ─────────────
+      - name: Package XAPK with split configs
+        run: |
+          mkdir -p build/xapk_staging
+
+          # Patched base APK
+          cp build/xyz.eutvpn.app-signed.apk build/xapk_staging/xyz.eutvpn.app.apk
+
+          # Split config APKs (unchanged)
+          cp extracted_xapk/config.arm64_v8a.apk build/xapk_staging/
+          cp extracted_xapk/config.en.apk         build/xapk_staging/
+          cp extracted_xapk/config.hdpi.apk        build/xapk_staging/
+          cp extracted_xapk/config.zh.apk          build/xapk_staging/
+
+          # XAPK manifest
+          cp extracted_xapk/manifest.json build/xapk_staging/
+
+          # Create XAPK (just a zip with .xapk extension)
+          cd build/xapk_staging
+          zip -r ../EutVPN-2.2.0-patched.xapk ./*
+
+      # ── Upload artifacts ──────────────────────────────────────
+      - name: Upload signed base APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: EutVPN-base-apk-signed
+          path: build/xyz.eutvpn.app-signed.apk
+          retention-days: 30
+
+      - name: Upload patched XAPK
+        uses: actions/upload-artifact@v4
+        with:
+          name: EutVPN-patched-xapk
+          path: build/EutVPN-2.2.0-patched.xapk
+          retention-days: 30
+
+      # ── Verify ────────────────────────────────────────────────
+      - name: Verify APK signature
+        run: |
+          apksigner verify --print-certs build/xyz.eutvpn.app-signed.apk
+          echo "✅ APK signed and verified successfully"
