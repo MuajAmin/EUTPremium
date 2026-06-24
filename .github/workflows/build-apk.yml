@@ -26,7 +26,7 @@ jobs:
       # ── Rebuild base APK from decompiled smali ────────────────
       - name: Rebuild base APK with apktool
         run: |
-          java -jar tools/apktool.jar b decompiled_eutvpn -o build/xyz.eutvpn.app.apk --use-aapt2
+          java -jar tools/apktool.jar b decompiled_eutvpn -o build/xyz.eutvpn.app.apk
 
       # ── Generate a debug keystore for signing ─────────────────
       - name: Generate debug keystore
