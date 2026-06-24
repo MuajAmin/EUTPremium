@@ -6018,10 +6018,6 @@
     # PATCHED: don't decrement vip_credits, hardcode large value instead
     const-wide/32 v6, 0x3B9AC9FF    # 999999999
 
-    .line 21
-    .line 22
-    const-wide/16 v8, 0x1
-
     .line 23
     invoke-interface {v2}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
 
